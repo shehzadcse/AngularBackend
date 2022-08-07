@@ -26,8 +26,7 @@ app.use((req, res, next) => {
 });
 
 app.post("/register", (req, res) => {
-    let id =
-        usersArray.length.toString() == 1 ? 1 : parseInt(usersArray.length + 1);
+    let id = parseInt(usersArray.length + 1);
     let name = req.body.name;
     let email = req.body.email;
     let phone = req.body.phone;
@@ -71,7 +70,7 @@ app.post("/login", (req, res) => {
 
 app.post("/create-ad", (req, res) => {
     let isLoggedIn = req.body.isLoggedIn || true;
-    let id = usersArray.length.toString() == 1 ? 1 : parseInt(usersArray.length + 1);
+    let id = parseInt(usersArray.length + 1);
     let password = generator.generate({
         length: 10,
         numbers: true,
@@ -107,7 +106,7 @@ app.post("/create-ad", (req, res) => {
         console.log('users Array');
         console.log(usersArray)
 
-        ad_id = adsArray.length.toString() == 1 ? 1 : parseInt(adsArray.length + 1);
+        ad_id = parseInt(adsArray.length + 1);
         newadsArray = {
             id: ad_id,
             user_id: id,
