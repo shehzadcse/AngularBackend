@@ -165,7 +165,7 @@ app.post("/upload-image", upload.single("logo"), (req, res) => {
   let id = req.body.id;
   // console.log(adsArray, "here");
   let newData = { ...adsArray[+id - 1] };
-  newData.imageUrl = "https://ads-buy.herokuapp.com/" + uploadFileName;
+  newData.imageUrl = "https://ads-buy.herokuapp.com/" + req.file.path;
   adsArray[+id - 1] = newData;
   res.json({
     adsArray,
