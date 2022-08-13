@@ -1,11 +1,26 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const port = process.env.PORT || 5000;
 const generator = require("generate-password");
 const bodyparser = require("body-parser");
+const multer = require("multer");
+let uploadFileName = "";
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (req, file, cb) => {
+    console.log(file);
+    uploadFileName = "uploads/" + file.originalname;
+    console.log(uploadFileName);
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
 // Body-parser middleware
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
+const upload = multer({ storage: storage });
 let usersArray = [];
 let adsArray = [];
 
@@ -93,6 +108,7 @@ app.post("/create-ad", (req, res) => {
     let state = req.body.state;
     let country = req.body.country;
     let ad_layout = req.body.ad_layout;
+    let blocksData = req.body.blocksData;
 
     let newArray = {
       id,
@@ -119,6 +135,9 @@ app.post("/create-ad", (req, res) => {
       state,
       country,
       ad_layout,
+      blocksData,
+      imageUrl: "",
+      totalBlocks: blocksData.hBlocks * blocksData.wBlocks,
     };
     adsArray.push(newadsArray);
     console.log("newadsArray Array");
@@ -126,7 +145,7 @@ app.post("/create-ad", (req, res) => {
     res.send(newadsArray);
   } else {
     res.send({
-      message: "Session TImed Out Please Login Again",
+      message: "Session Timed Out Please Login Again",
     });
   }
 });
@@ -135,7 +154,17 @@ app.get("/users", (req, res) => {
   res.send(usersArray);
 });
 app.get("/ads", (req, res) => {
-  res.send(adsArray);
+  let sortedArray = adsArray.sort((a, b) => b.totalBlocks - a.totalBlocks);
+  res.send(sortedArray);
+});
+app.post("/upload-image", upload.single("logo"), (req, res) => {
+  let id = req.body.id;
+  for (let index = 0; index < adsArray.length; index++) {
+    if (adsArray[index].id === id) {
+      adsArray[index].imageUrl =
+        "https://ads-buy.herokuapp.com" + uploadFileName;
+    }
+  }
 });
 
 app.listen(port, () => {
