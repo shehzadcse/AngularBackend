@@ -93,6 +93,7 @@ app.post("/create-ad", (req, res) => {
         let state = req.body.state;
         let country = req.body.country;
         let ad_layout = req.body.ad_layout;
+        let blocksData = req.body.blocksData;
 
         let newArray = {
             id,
@@ -118,7 +119,8 @@ app.post("/create-ad", (req, res) => {
             pin_code,
             state,
             country,
-            ad_layout
+            ad_layout,
+            blocksData
         }
         adsArray.push(newadsArray);
         console.log('newadsArray Array');
