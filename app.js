@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
     cb(null, "uploads");
   },
   filename: (req, file, cb) => {
-    console.log(file);
+    // console.log(file);
     uploadFileName = "uploads/" + file.originalname;
     console.log(uploadFileName);
     // req.file.path = uploadFileName;
@@ -141,7 +141,7 @@ app.post("/create-ad", (req, res) => {
       totalBlocks: blocksData.hBlocks * blocksData.wBlocks,
     };
     adsArray.push(newadsArray);
-    console.log("newadsArray Array");
+    // console.log("newadsArray Array");
     console.log(newadsArray);
     res.send(newadsArray);
   } else {
@@ -160,13 +160,10 @@ app.get("/ads", (req, res) => {
 });
 app.post("/upload-image", upload.single("logo"), (req, res) => {
   let id = req.body.id;
-  console.log(req.body, req.file.path);
-  for (let index = 0; index < adsArray.length; index++) {
-    if (+adsArray[index].id === id) {
-      adsArray[index].imageUrl =
-        "https://ads-buy.herokuapp.com/" + req.file.path;
-    }
-  }
+  // console.log(adsArray, "here");
+  let newData = { ...adsArray[+id - 1] };
+  newData.imageUrl = "https://ads-buy.herokuapp.com" + uploadFileName;
+  adsArray[+id - 1] = newData;
   res.json({
     adsArray,
   });
