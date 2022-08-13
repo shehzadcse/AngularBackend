@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
     console.log(file);
     uploadFileName = "uploads/" + file.originalname;
     console.log(uploadFileName);
+    // req.file.path = uploadFileName;
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
@@ -155,14 +156,15 @@ app.get("/users", (req, res) => {
 });
 app.get("/ads", (req, res) => {
   let sortedArray = adsArray.sort((a, b) => b.totalBlocks - a.totalBlocks);
-  res.send(sortedArray);
+  res.send(sortedArray.filter((val) => val.imageUrl));
 });
 app.post("/upload-image", upload.single("logo"), (req, res) => {
   let id = req.body.id;
+  console.log(req.body);
   for (let index = 0; index < adsArray.length; index++) {
     if (adsArray[index].id === id) {
       adsArray[index].imageUrl =
-        "https://ads-buy.herokuapp.com" + uploadFileName;
+        "https://ads-buy.herokuapp.com" + req.file.location;
     }
   }
   res.json({
