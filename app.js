@@ -42,7 +42,7 @@ app.use((req, res, next) => {
   next();
 });
 
-application.use(express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.post("/register", (req, res) => {
   let id = parseInt(usersArray.length + 1);
