@@ -160,11 +160,11 @@ app.get("/ads", (req, res) => {
 });
 app.post("/upload-image", upload.single("logo"), (req, res) => {
   let id = req.body.id;
-  console.log(req.body);
+  console.log(req.body, req.file.path);
   for (let index = 0; index < adsArray.length; index++) {
     if (adsArray[index].id === id) {
       adsArray[index].imageUrl =
-        "https://ads-buy.herokuapp.com" + req.file.location;
+        "https://ads-buy.herokuapp.com/" + req.file.path;
     }
   }
   res.json({
