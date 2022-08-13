@@ -18,6 +18,7 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
+
 // Body-parser middleware
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
@@ -40,6 +41,8 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+application.use(express.static(path.join(__dirname, "uploads")));
 
 app.post("/register", (req, res) => {
   let id = parseInt(usersArray.length + 1);
@@ -162,7 +165,7 @@ app.post("/upload-image", upload.single("logo"), (req, res) => {
   let id = req.body.id;
   // console.log(adsArray, "here");
   let newData = { ...adsArray[+id - 1] };
-  newData.imageUrl = "https://ads-buy.herokuapp.com" + uploadFileName;
+  newData.imageUrl = "https://ads-buy.herokuapp.com/" + uploadFileName;
   adsArray[+id - 1] = newData;
   res.json({
     adsArray,
