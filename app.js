@@ -165,6 +165,9 @@ app.post("/upload-image", upload.single("logo"), (req, res) => {
         "https://ads-buy.herokuapp.com" + uploadFileName;
     }
   }
+  res.json({
+    adsArray,
+  });
 });
 
 app.listen(port, () => {
