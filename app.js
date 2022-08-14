@@ -11,7 +11,80 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 let usersArray = [];
-let adsArray = [];
+let adsArray = [
+  {
+    id: 3,
+    user_id: 2,
+    company_name: "Tata",
+    name: "Ankit Gupta",
+    email: "ankitgupyta8768@gmail.com",
+    phone: "08768357826",
+    tagline: "Hello",
+    addressLine1: "Near SVIST, Baruipur",
+    city_name: "Kolkata",
+    pin_code: "700145",
+    state: "West Bengal",
+    country: "India",
+    blocksData: { hBlocks: 2, wBlocks: 5 },
+    imageUrl:
+      "https://ads-project-kolkata.s3.ap-south-1.amazonaws.com/tata-safety-jpg-1660504131916.jpg",
+    totalBlocks: 10,
+  },
+  {
+    id: 4,
+    user_id: 3,
+    company_name: "Airtel",
+    name: "Ankit Gupta",
+    email: "ankitgupyta8768@gmail.com",
+    phone: "08768357826",
+    tagline: "Hello",
+    addressLine1: "Near SVIST, Baruipur",
+    city_name: "Kolkata",
+    pin_code: "700145",
+    state: "West Bengal",
+    country: "India",
+    blocksData: { hBlocks: 4, wBlocks: 2 },
+    imageUrl:
+      "https://ads-project-kolkata.s3.ap-south-1.amazonaws.com/airtel-logo--e1613296706993-jpg-1660504171884.jpg",
+    totalBlocks: 8,
+  },
+  {
+    id: 2,
+    user_id: 1,
+    company_name: "Reliance",
+    name: "Ankit Gupta",
+    email: "ankitgupyta8768@gmail.com",
+    phone: "08768357826",
+    tagline: "Hello",
+    addressLine1: "Near SVIST, Baruipur",
+    city_name: "Kolkata",
+    pin_code: "700145",
+    state: "West Bengal",
+    country: "India",
+    blocksData: { hBlocks: 2, wBlocks: 3 },
+    imageUrl:
+      "https://ads-project-kolkata.s3.ap-south-1.amazonaws.com/reliance-jpg-1660504057690.jpg",
+    totalBlocks: 6,
+  },
+  {
+    id: 5,
+    user_id: 4,
+    company_name: "Ankit",
+    name: "Ankit Gupta",
+    email: "ankitgupyta8768@gmail.com",
+    phone: "08768357826",
+    tagline: "Ankit",
+    addressLine1: "Near SVIST, Baruipur",
+    city_name: "Kolkata",
+    pin_code: "700145",
+    state: "West Bengal",
+    country: "India",
+    blocksData: { hBlocks: 2, wBlocks: 2 },
+    imageUrl:
+      "https://ads-project-kolkata.s3.ap-south-1.amazonaws.com/1660499613516-jpg-1660504205835.jpg",
+    totalBlocks: 4,
+  },
+];
 
 app.use((req, res, next) => {
   // res.setHeader("Access-Control-Allow-Origin", "*");
