@@ -1,28 +1,15 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
 const port = process.env.PORT || 5000;
 const generator = require("generate-password");
 const bodyparser = require("body-parser");
-const multer = require("multer");
-let uploadFileName = "";
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (req, file, cb) => {
-    // console.log(file);
-    uploadFileName = "uploads/" + file.originalname;
-    console.log(uploadFileName);
-    // req.file.path = uploadFileName;
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
+const { upload } = require("./utils/fileUtils");
 // Body-parser middleware
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
-const upload = multer({ storage: storage });
+
 let usersArray = [];
 let adsArray = [];
 
@@ -168,7 +155,7 @@ app.post("/upload-image", upload.single("logo"), (req, res) => {
   let id = req.body.id;
   // console.log(adsArray, "here");
   let newData = { ...adsArray[+id - 1] };
-  newData.imageUrl = "https://ads-buy.herokuapp.com/" + req.file.path;
+  newData.imageUrl = req.file.location;
   adsArray[+id - 1] = newData;
   res.json({
     adsArray,
