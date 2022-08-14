@@ -43,7 +43,7 @@ let adsArray = [
     pin_code: "700145",
     state: "West Bengal",
     country: "India",
-    blocksData: { hBlocks: 3, wBlocks: 3 },
+    blocksData: { hBlocks: 2, wBlocks: 5 },
     imageUrl:
       "https://ads-project-kolkata.s3.ap-south-1.amazonaws.com/airtel-logo--e1613296706993-jpg-1660504171884.jpg",
     totalBlocks: 8,
